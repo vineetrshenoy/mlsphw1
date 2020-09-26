@@ -1,10 +1,14 @@
 %% Driver File for Problem 1: Part 2: Face Detection
 % You will implement an Adaboost Classifier to classify between face images
 % and non-face images.
-% Author Name : (Your name here)
+% Author Name : Vineet Shenoy
 
+clear,clc
 
-%% Your Driver Script Starts Here
-% You can use as many auxilliary scripts as you want
-% As long as we can run this script to get all the plots and classification
-% accuracies we require from Part 2
+train_mat = load_training_data('../data/lfw_1000');
+
+train_mat_normalized = zscore(train_mat);
+
+[U, S, V] = svd(train_mat_normalized, 0);
+
+boost_train_face = load_boosting_data('../data/boosting_data/train/face');
