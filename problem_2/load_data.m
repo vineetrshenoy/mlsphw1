@@ -3,6 +3,9 @@ function [smagNote, smagMusic, sphaseMusic] = load_data()
 % Required Input Arguments:
 % None
 
+smagNote = read_notes();
+
+
 % Required Output Arguments:
 % smagNote: 1025 x 11 matrix containing the mean spectrum magnitudes of the notes. A correct sequence of the notes is REQUIRED. (From left to right: e f g a b c d e2 f2 g2 a2)
 % smagMusic: 1025 x K matrix containing the spectrum magnitueds of the music after STFT.

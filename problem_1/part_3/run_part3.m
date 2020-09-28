@@ -11,5 +11,8 @@ womens_train = load_data('../data/lfw_genders/female/train');
 [h_womens, w_womens] = size(womens_train);
 
 train_data = [mens_train, womens_train];
+[h, w] = size(train_data);
 
-train_data_mean = mean(train_data, 2);
+%train_data_mean = mean(train_data, 2);
+%[X, Y] = meshgrid(ones(w, 1), train_data_mean);
+%result = train_data_mean - Y;
