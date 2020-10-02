@@ -11,7 +11,7 @@ function [train_mat] = load_training_data(direc)
     for i=3:length(D)
         
         
-        A = double(imread(fullfile(direc, D(i).name)));
+        A = half(double(imread(fullfile(direc, D(i).name))));
         train_mat(:, count) = A(:);
         count = count + 1;
 

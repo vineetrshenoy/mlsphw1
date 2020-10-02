@@ -8,7 +8,7 @@ train_mat = load_training_data('../data/lfw_1000');
 [row, col] = size(train_mat);
 [U, S, V] = svd(train_mat, 0); %Get eigenvectors + eigenvalues
 eigenvalues = diag(S.^2);
-
+%{
 fig1 = figure(1); %plotting the eigenvalues
 plot(1:col, eigenvalues)
 title('Eigenvalues')
@@ -33,7 +33,12 @@ g8 = squeeze(mean(g8,3));
 solvay = double(imread('../data/group_photos/Solvay.jpg'));
 solvay = squeeze(mean(solvay,3));
 
-scale_scan(U, beatles);
-scale_scan(U, big3);
-scale_scan(U, g8);
-scale_scan(U, solvay);
+loc = scale_scan(U, beatles, 4, 30);
+draw(beatles, loc);
+
+loc = scale_scan(U, big3, 3);
+
+loc = scale_scan(U, g8, 8);
+
+loc = scale_scan(U, solvay, 29);
+
