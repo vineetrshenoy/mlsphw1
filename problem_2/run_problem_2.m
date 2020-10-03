@@ -16,3 +16,9 @@ x = 5;
 % Use the 'synthesize_music' function here.
 % Use 'wavwrite' function to write the synthesized music as 'problem2b_synthesis.wav' to the 'results' folder.
 
+[B,W,obj,k] = get_weights(smagMusic, smagNote, 500);
+
+M = smagNote * W;
+
+reconstructedsignal = stft_hw(M.*sphaseMusic,2048,256,0,hann(2048));
+audiowrite('results/problem2b_synthesis.wav', reconstructedsignal, 16000);
