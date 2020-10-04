@@ -36,3 +36,7 @@ title('Eigenvalues')
 
 [test_data, mlen, wlen] = load_data('../data/lfw_genders/male/test', '../data/lfw_genders/female/test');
 
+[acc, cl] = simple_gender(U, 50, mens_mean, womens_mean, test_data);
+[acc, cl] = simple_gender(U, 100, mens_mean, womens_mean, test_data);
+[acc, cl] = simple_gender(U, 200, mens_mean, womens_mean, test_data);
+[acc, cl] = simple_gender(U, 300, mens_mean, womens_mean, test_data);

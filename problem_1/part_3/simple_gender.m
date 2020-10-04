@@ -2,8 +2,8 @@ function [accuracy classifier] = simple_gender(U, k, mmean, wmean, test_data)
 
     proj_mat = U(:, 1:k) ./ vecnorm(U(:, 1:k));
     
-    male_proj = project(proj_mat, mmean);
-    female_proj = project(proj_mat, wmean);
+    [male_proj, mweights] = project(proj_mat, mmean);
+    [female_proj, fweights] = project(proj_mat, wmean);
     
 
     [r, c] = size(test_data);
@@ -14,10 +14,10 @@ function [accuracy classifier] = simple_gender(U, k, mmean, wmean, test_data)
     classifier = zeros(1, c);
     for i=1:c
 
-        weights = project(proj_mat, test_data(:, i));
+        [vec, weights] = project(proj_mat, test_data(:, i));
 
-        male_diff = norm(male_proj - weights);
-        female_diff = norm(female_proj - weights);
+        male_diff = norm(mweights - weights);
+        female_diff = norm(fweights - weights);
         
         if female_diff < male_diff 
 
