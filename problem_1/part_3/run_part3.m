@@ -5,7 +5,8 @@
 
 clear,clc
 [train_data, mlen, wlen] = load_data('../data/lfw_genders/male/train', '../data/lfw_genders/female/train');
-
+train_mean = mean(train_data, 2);
+mean_train = double(train_data) - train_mean;
 
 x = 5
 %train_data_mean = mean(train_data, 2);

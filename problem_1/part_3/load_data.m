@@ -9,7 +9,7 @@ function [train_mat, men_length, women_length] = load_data(direc1, direc2)
     women_length = length(B) - 2;
     
     N_samples = men_length + women_length; % two hidden folders are not counted
-    train_mat = zeros(250*250, N_samples);
+    train_mat = uint8(zeros(250*250, N_samples));
     
 
 
@@ -19,7 +19,8 @@ function [train_mat, men_length, women_length] = load_data(direc1, direc2)
         
         
         A = uint8(imread(fullfile(direc1, D(i).name)));
-        train_mat(:, count) = A(:);
+        A = reshape(A, [], 1);
+        train_mat(:, count) = A;
         count = count + 1;
 
     end
@@ -29,7 +30,8 @@ function [train_mat, men_length, women_length] = load_data(direc1, direc2)
         
         
         A = uint8(imread(fullfile(direc2, B(i).name)));
-        train_mat(:, count) = A(:);
+        A = reshape(A, [], 1);
+        train_mat(:, count) = A;
         count = count + 1;
 
     end

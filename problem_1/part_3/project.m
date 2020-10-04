@@ -1,0 +1,12 @@
+function [vec] = project(proj_mat, data_vec)
+
+    [r, c] = size(proj_mat);
+    vec = zeros(r, 1);
+
+    %data_vec = reshape(data_vec, [], 1);
+    for i = 1:c
+
+        vec = vec + (proj_mat(:, i)' * double(data_vec)) * proj_mat(:, i);
+    end
+
+end
