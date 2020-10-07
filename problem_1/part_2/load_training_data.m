@@ -13,7 +13,7 @@ function [train_mat] = load_training_data(direc)
         
         A = double(imread(fullfile(direc, D(i).name)));
         A = imresize(A, [19, 19]);
-        train_mat(:, count) = A(:);
+        train_mat(:, count) = reshape(A, [], 1);
         count = count + 1;
 
     end

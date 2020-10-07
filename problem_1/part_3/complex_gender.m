@@ -1,4 +1,4 @@
-function [accuracy classifier] = complex_gender(U, k, train_data, test_data)
+function [accuracy classifier] = complex_gender(U, k, train_data, test_data, mlen)
 
     proj_mat = U(:, 1:k) ./ vecnorm(U(:, 1:k));
 
@@ -29,10 +29,10 @@ function [accuracy classifier] = complex_gender(U, k, train_data, test_data)
         difference = train_weights - test_w;
         score = vecnorm(difference);
 
-        score_men = sum(score(1:(c_test/2)));
-        score_women = sum(score((c_test/2) + 1:end));
+        [score_men, idxm] = min(score(1:(c_train/2)));
+        [score_women, idxw] = min(score((c_train/2) + 1:end));
 
-        if female_diff < male_diff 
+        if score_women < score_men 
 
             classifier(i) = 1;
         
@@ -45,7 +45,7 @@ function [accuracy classifier] = complex_gender(U, k, train_data, test_data)
 
     difference = ground_truth - classifier;
 
-    accuracy = (c - nnz(difference)) / c;
+    accuracy = (c_test - nnz(difference)) / c_test;
 
 
 end

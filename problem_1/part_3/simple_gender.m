@@ -1,4 +1,4 @@
-function [accuracy classifier] = simple_gender(U, k, mmean, wmean, test_data)
+function [accuracy, classifier] = simple_gender(U, k, mmean, wmean, test_data)
 
     proj_mat = U(:, 1:k) ./ vecnorm(U(:, 1:k));
     
@@ -10,6 +10,7 @@ function [accuracy classifier] = simple_gender(U, k, mmean, wmean, test_data)
 
     ground_truth = ones(1, c);
     ground_truth(1:(c/2)) = zeros(1, (c/2));
+
 
     classifier = zeros(1, c);
     for i=1:c

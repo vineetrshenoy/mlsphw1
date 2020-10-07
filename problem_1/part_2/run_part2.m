@@ -7,14 +7,26 @@ clear,clc
 
 train_mat = load_training_data('../data/lfw_1000');
 
-train_mat_normalized = zscore(train_mat);
+train_mat_normalized = zscore(train_mat, 0, 2);
 
 [U, S, V] = svd(train_mat_normalized, 0);
 
-boost_train_face = load_boosting_data('../data/boosting_data/train/face');
-weight_face = pinv(U(:, 1:10)) * boost_train_face;
+train_f_loc = '../data/boosting_data/train/face';
+train_nf_loc =  '../data/boosting_data/train/non-face';
+
+[train_data, train_labels] = get_weights(train_f_loc, train_nf_loc, U, 10);
+
+Mdl = fitcensemble(train_data', train_labels, 'Method', 'AdaBoostM1');
+
+test_f_loc = '../data/boosting_data/test/face';
+test_nf_loc = '../data/boosting_data/test/non-face';
+
+[test_data, test_labels] = get_weights(train_f_loc, train_nf_loc, U, 10);
+
+out_labels = predict(Mdl, test_data');
 
 
-%A =  U(:, 1:10) * weight(:, 1);
-boost_train_noface = load_boosting_data('../data/boosting_data/train/non-face');
-weight_noface = pinv(U(:, 1:10)) * boost_train_noface;
+difference = test_labels - out_labels';
+
+[r,c] = size(test_data);
+accuracy = (c - nnz(difference)) / c
